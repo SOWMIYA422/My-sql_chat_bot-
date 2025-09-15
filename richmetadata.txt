@@ -1,0 +1,995 @@
+Database Schema: dares
+================================================================================
+
+Table: address
+--------------
+- address_id: A field of type int (required). Primary Key.  Synonyms: number, residence, address, identifier, ref, city, code, key, postal, id, place, street, location.
+- address_type_code: A field of type varchar(255) (optional).   Synonyms: residence, address, class, city, variant, postal, group, type, place, category, kind, street, location.
+- address_1: A field of type varchar(255) (optional).   Synonyms: residence, address, city, postal, place, street, location.
+- address_2: A field of type varchar(255) (optional).   Synonyms: residence, address, city, postal, place, street, location.
+- phone_no: A field of type varchar(45) (optional).   Synonyms: cell, contact number, mobile, telephone, phone.
+- website: A field of type varchar(45) (optional).  
+- email_1: A field of type varchar(45) (optional).   Synonyms: email, mail, address, contact.
+- email_2: A field of type varchar(45) (optional).   Synonyms: email, mail, address, contact.
+- city: A field of type varchar(45) (optional).   Synonyms: town, city, locality, municipality.
+- state: A field of type varchar(45) (optional).  
+- country: A field of type varchar(45) (optional).   Synonyms: territory, region, state, country, nation.
+- zip: A field of type varchar(255) (optional).   Synonyms: zip, pincode, postal code, postcode.
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- date_added: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- date_updated: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- createdAt: A field of type datetime (required).  
+- updatedAt: A field of type datetime (required).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- state_id: A field of type int (optional).   Synonyms: number, identifier, ref, code, key, id.
+- city_id: A field of type int (optional).   Synonyms: number, locality, identifier, ref, city, code, key, municipality, id, town.
+- country_id: A field of type int (optional).   Synonyms: number, territory, region, identifier, ref, code, key, nation, state, country, id.
+
+Table: auth_group
+-----------------
+- id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- name: A field of type varchar(150) (required).   Synonyms: description, designation, fullname, label, title, name.
+
+Table: auth_group_permissions
+-----------------------------
+- id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- group_id: A field of type int (required).  Foreign Key → auth_group.id. Synonyms: number, identifier, ref, code, key, id.
+- permission_id: A field of type int (required).  Foreign Key → auth_permission.id. Synonyms: number, identifier, ref, code, key, id.
+
+Table: auth_permission
+----------------------
+- id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- name: A field of type varchar(255) (required).   Synonyms: description, designation, fullname, label, title, name.
+- content_type_id: A field of type int (required).  Foreign Key → django_content_type.id. Synonyms: number, class, identifier, ref, code, key, variant, group, type, id, category, kind.
+- codename: A field of type varchar(100) (required).   Synonyms: description, designation, fullname, label, title, name.
+
+Table: auth_user
+----------------
+- id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- password: A field of type varchar(128) (required).   Synonyms: password, passcode, credential, secret.
+- last_login: A field of type datetime(6) (optional).  
+- is_superuser: A field of type tinyint(1) (required).   Synonyms: account, user, client, customer, person, employee, member.
+- username: A field of type varchar(150) (required).   Synonyms: account, user, customer, client, description, person, employee, designation, member, fullname, label, title, name.
+- first_name: A field of type varchar(150) (required).   Synonyms: description, designation, fullname, label, title, name.
+- last_name: A field of type varchar(150) (required).   Synonyms: description, designation, fullname, label, title, name.
+- email: A field of type varchar(254) (required).   Synonyms: email, mail, address, contact.
+- is_staff: A field of type tinyint(1) (required).  
+- is_active: A field of type tinyint(1) (required).   Synonyms: active, working, operational, live, enabled, on.
+- date_joined: A field of type datetime(6) (required).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: auth_user_groups
+-----------------------
+- id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- user_id: A field of type int (required).  Foreign Key → auth_user.id. Synonyms: number, account, user, customer, client, identifier, ref, person, code, key, employee, member, id.
+- group_id: A field of type int (required).  Foreign Key → auth_group.id. Synonyms: number, identifier, ref, code, key, id.
+
+Table: auth_user_user_permissions
+---------------------------------
+- id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- user_id: A field of type int (required).  Foreign Key → auth_user.id. Synonyms: number, account, user, customer, client, identifier, ref, person, code, key, employee, member, id.
+- permission_id: A field of type int (required).  Foreign Key → auth_permission.id. Synonyms: number, identifier, ref, code, key, id.
+
+Table: batch
+------------
+- batch_id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- batch_type_id: A field of type int (optional).  Foreign Key → batch_type.batch_type_id. Synonyms: number, class, identifier, ref, code, key, variant, group, type, id, category, kind.
+- batch_status_id: A field of type int (optional).   Synonyms: number, stage, condition, identifier, ref, code, key, state, progress, id, status, flag.
+- provider_id: A field of type int (optional).  Foreign Key → provider.provider_id. Synonyms: number, identifier, ref, code, key, id.
+- payor_id: A field of type int (optional).  Foreign Key → payor.payor_id. Synonyms: number, identifier, ref, code, key, id.
+- name: A field of type varchar(255) (optional).   Synonyms: description, designation, fullname, label, title, name.
+- description: A field of type varchar(255) (optional).  
+- due_date: A field of type date (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- claim_count: A field of type int (optional).  
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- created_date: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- updated_date: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- createdAt: A field of type datetime (required).  
+- updatedAt: A field of type datetime (required).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: batch_claim
+------------------
+- batch_claim_id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- batch_id: A field of type int (optional).  Foreign Key → batch.batch_id. Synonyms: number, identifier, ref, code, key, id.
+- claim_id: A field of type int (optional).  Foreign Key → claim.claim_id. Synonyms: number, identifier, ref, code, key, id.
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- created_date: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- updated_date: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- createdAt: A field of type datetime (required).  
+- updatedAt: A field of type datetime (required).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: batch_detail
+-------------------
+- batch_detail_id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- batch_id: A field of type int (required).   Synonyms: number, identifier, ref, code, key, id.
+- batch_owner_id: A field of type int (optional).  Foreign Key → users.user_id. Synonyms: number, identifier, ref, code, key, id.
+- nsb_contact_id: A field of type int (optional).   Synonyms: number, identifier, ref, code, key, id.
+- dispute_nbr: A field of type varchar(50) (optional).  
+- idr_entity_id: A field of type int (optional).  Foreign Key → idr_entity.idr_entity_id. Synonyms: number, identifier, ref, code, key, id.
+- provider_address_id: A field of type int (optional).  Foreign Key → provider_address.provider_address_id. Synonyms: number, residence, address, identifier, ref, city, code, key, postal, id, place, street, location.
+- provider_facility_id: A field of type int (optional).  Foreign Key → provider_facility.provider_facility_id. Synonyms: number, identifier, ref, code, key, id.
+- on_start_date: A field of type date (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- initiation_start_date: A field of type date (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- initiation_end_date: A field of type date (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- hcpc_code: A field of type varchar(45) (optional).  
+- client_type_code: A field of type varchar(10) (optional).   Synonyms: class, variant, group, type, category, kind.
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- created_date: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- created_by: A field of type int (optional).  
+- updated_date: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- updated_by: A field of type int (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- dos_start_date: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- dos_end_date: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- service_type_code: A field of type varchar(10) (optional).   Synonyms: class, variant, group, type, category, kind.
+- service_code: A field of type varchar(45) (optional).  
+- plan_type_code: A field of type varchar(10) (optional).   Synonyms: class, variant, group, type, category, kind.
+- payor_plan_name: A field of type varchar(255) (optional).   Synonyms: description, designation, fullname, label, title, name.
+- erisa_ind: A field of type tinyint(1) (optional).  
+- fehb_code: A field of type varchar(45) (optional).  
+- createdAt: A field of type datetime (optional).  
+- updatedAt: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: batch_document
+---------------------
+- batch_document_id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- document_id: A field of type int (optional).  Foreign Key → document.document_id. Synonyms: number, identifier, ref, code, key, id.
+- document_list_id: A field of type int (optional).  Foreign Key → document_list.document_list_id. Synonyms: number, identifier, ref, code, key, id.
+- batch_id: A field of type int (optional).  Foreign Key → batch.batch_id. Synonyms: number, identifier, ref, code, key, id.
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- created_date: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- created_by: A field of type int (optional).  
+- updated_date: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- updated_by: A field of type int (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: batch_error_log
+----------------------
+- batch_error_log_id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- batch_id: A field of type int (required).  Foreign Key → batch.batch_id. Synonyms: number, identifier, ref, code, key, id.
+- error_log_id: A field of type int (optional).   Synonyms: number, identifier, ref, code, key, id.
+- error_code: A field of type varchar(50) (optional).  
+- error_description: A field of type varchar(500) (optional).  
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- created_date: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- created_by: A field of type int (optional).  
+- updated_date: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- updated_by: A field of type int (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: batch_query
+------------------
+- batch_query_id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- batch_id: A field of type int (required).   Synonyms: number, identifier, ref, code, key, id.
+- query_id: A field of type int (required).   Synonyms: number, identifier, ref, code, key, id.
+- operator_code: A field of type varchar(255) (optional).  
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- created_date: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- created_by: A field of type int (optional).  
+- updated_date: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- updated_by: A field of type int (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- createdAt: A field of type datetime (required).  
+- updatedAt: A field of type datetime (required).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: batch_status
+-------------------
+- batch_status_id: A field of type int (required). Primary Key.  Synonyms: number, stage, condition, identifier, ref, code, key, state, progress, id, status, flag.
+- batch_id: A field of type int (optional).  Foreign Key → batch.batch_id. Synonyms: number, identifier, ref, code, key, id.
+- status_id: A field of type int (optional).  Foreign Key → status.status_id. Synonyms: number, stage, condition, identifier, ref, code, key, state, progress, id, status, flag.
+- workflow_id: A field of type int (optional).  Foreign Key → workflow.workflow_id. Synonyms: number, identifier, ref, code, key, id.
+- workflow_step_id: A field of type int (optional).  Foreign Key → workflow_step.workflow_step_id. Synonyms: number, identifier, ref, code, key, id.
+- start_date: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- end_date: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- actual_date: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- reason_code: A field of type varchar(10) (optional).  
+- reason_text: A field of type varchar(500) (optional).  
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- date_added: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- date_updated: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- created_by: A field of type varchar(45) (optional).  
+- updated_by: A field of type varchar(45) (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- createdAt: A field of type datetime (required).  
+- updatedAt: A field of type datetime (required).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: batch_type
+-----------------
+- batch_type_id: A field of type int (required). Primary Key.  Synonyms: number, class, identifier, ref, code, key, variant, group, type, id, category, kind.
+- name: A field of type varchar(255) (optional).   Synonyms: description, designation, fullname, label, title, name.
+- description: A field of type varchar(255) (optional).  
+- limit: A field of type int (optional).  
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- createdAt: A field of type datetime (required).  
+- updatedAt: A field of type datetime (required).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: charge
+-------------
+- charge_id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- claim_id: A field of type int (required).  Foreign Key → claim.claim_id. Synonyms: number, identifier, ref, code, key, id.
+- mandatory_ind: A field of type tinyint(1) (optional).  
+- cpt_code: A field of type varchar(255) (optional).  
+- cpt_description: A field of type varchar(255) (optional).  
+- QPA_percentage: A field of type varchar(255) (optional).  
+- QPA_amt: A field of type decimal(10,2) (optional).  
+- priinspmt: A field of type decimal(10,2) (optional).  
+- BilledAmount: A field of type decimal(10,2) (optional).   Synonyms: value, price, charge, total, fee, amount, cost, sum.
+- total_cost_share_amt: A field of type decimal(10,2) (optional).  
+- Diagnosis_Code: A field of type varchar(255) (optional).  
+- Diagnosis_Description: A field of type varchar(255) (optional).  
+- initial_payment_amt: A field of type decimal(10,2) (optional).  
+- initial_payment_date: A field of type date (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- offer_amt: A field of type decimal(10,2) (optional).  
+- service_date: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- ClientSystemChargeID: A field of type varchar(255) (optional).   Synonyms: number, identifier, ref, code, key, id.
+- CoInsurance: A field of type decimal(10,2) (optional).  
+- CoPayment: A field of type decimal(10,2) (optional).  
+- Deductible: A field of type decimal(10,2) (optional).  
+- Incremental_Value: A field of type decimal(10,2) (optional).  
+- IncrementalImpact: A field of type decimal(10,2) (optional).  
+- ContractualWriteOff: A field of type varchar(255) (optional).  
+- RemitDate: A field of type varchar(255) (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- RemitDate2: A field of type varchar(255) (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- date_added: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- date_updated: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- createdAt: A field of type datetime (required).  
+- updatedAt: A field of type datetime (required).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: cities
+-------------
+- cities_id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- name: A field of type varchar(255) (optional).   Synonyms: description, designation, fullname, label, title, name.
+- state_id: A field of type int (optional).   Synonyms: number, identifier, ref, code, key, id.
+- state_code: A field of type varchar(255) (optional).  
+- country_id: A field of type int (optional).   Synonyms: number, territory, region, identifier, ref, code, key, nation, state, country, id.
+- country_code: A field of type varchar(255) (optional).   Synonyms: territory, region, state, country, nation.
+- latitude: A field of type float (optional).  
+- longitude: A field of type float (optional).  
+- flag: A field of type varchar(255) (optional).   Synonyms: indicator, signal, flag, marker.
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- date_added: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- date_updated: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- created_by: A field of type varchar(255) (optional).  
+- updated_by: A field of type varchar(255) (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: claim
+------------
+- claim_id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- claim_no: A field of type varchar(255) (required).  
+- company_id: A field of type int (optional).   Synonyms: number, identifier, ref, code, key, id.
+- claim_status_id: A field of type int (optional).   Synonyms: number, stage, condition, identifier, ref, code, key, state, progress, id, status, flag.
+- icd_code_id: A field of type int (optional).   Synonyms: number, identifier, ref, code, key, id.
+- payor_id: A field of type int (optional).   Synonyms: number, identifier, ref, code, key, id.
+- provider_id: A field of type int (optional).   Synonyms: number, identifier, ref, code, key, id.
+- contact_id: A field of type int (optional).   Synonyms: number, identifier, ref, code, key, id.
+- ClientSystemVisitID: A field of type varchar(255) (optional).   Synonyms: number, identifier, ref, code, key, id.
+- ClientSystemClaimNumber: A field of type varchar(255) (optional).  
+- description: A field of type varchar(255) (optional).  
+- claim_date: A field of type date (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- patient_name: A field of type varchar(255) (optional).   Synonyms: description, designation, fullname, label, title, name.
+- patient_number: A field of type varchar(255) (optional).  
+- origin_location: A field of type varchar(255) (optional).  
+- destination_location: A field of type varchar(255) (optional).  
+- client_ref_number: A field of type varchar(255) (optional).  
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- date_added: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- date_updated: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- createdAt: A field of type datetime (required).  
+- updatedAt: A field of type datetime (required).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: claim_document
+---------------------
+- claim_document_id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- document_id: A field of type int (optional).  Foreign Key → document.document_id. Synonyms: number, identifier, ref, code, key, id.
+- document_list_id: A field of type int (optional).  Foreign Key → document_list.document_list_id. Synonyms: number, identifier, ref, code, key, id.
+- claim_id: A field of type int (optional).  Foreign Key → claim.claim_id. Synonyms: number, identifier, ref, code, key, id.
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- created_date: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- created_by: A field of type int (optional).  
+- updated_date: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- updated_by: A field of type int (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- createdAt: A field of type datetime (optional).  
+- updatedAt: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: claim_error_log
+----------------------
+- claim_error_log_id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- claim_id: A field of type int (required).  Foreign Key → claim.claim_id. Synonyms: number, identifier, ref, code, key, id.
+- error_log_id: A field of type int (optional).  Foreign Key → error_log.error_log_id. Synonyms: number, identifier, ref, code, key, id.
+- error_code: A field of type varchar(15) (optional).  
+- error_description: A field of type varchar(255) (optional).  
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- created_date: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- created_by: A field of type int (optional).  
+- updated_date: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- updated_by: A field of type int (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: claim_log
+----------------
+- claim_log_id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- file_upload_log_id: A field of type int (optional).  Foreign Key → file_upload_log.file_upload_log_id. Synonyms: number, identifier, ref, code, key, id.
+- claim_id: A field of type int (optional).  Foreign Key → claim.claim_id. Synonyms: number, identifier, ref, code, key, id.
+- created_by: A field of type int (optional).  
+- created_date: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: claim_status
+-------------------
+- claim_status_id: A field of type int (required). Primary Key.  Synonyms: number, stage, condition, identifier, ref, code, key, state, progress, id, status, flag.
+- claim_id: A field of type int (optional).  Foreign Key → claim.claim_id. Synonyms: number, identifier, ref, code, key, id.
+- status_id: A field of type int (optional).  Foreign Key → status.status_id. Synonyms: number, stage, condition, identifier, ref, code, key, state, progress, id, status, flag.
+- workflow_id: A field of type int (optional).  Foreign Key → workflow.workflow_id. Synonyms: number, identifier, ref, code, key, id.
+- workflow_step_id: A field of type int (optional).  Foreign Key → workflow_step.workflow_step_id. Synonyms: number, identifier, ref, code, key, id.
+- start_date: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- end_date: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- actual_date: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- reason_code: A field of type varchar(10) (optional).  
+- reason_text: A field of type varchar(500) (optional).  
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- date_added: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- date_updated: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- created_by: A field of type varchar(45) (optional).  
+- updated_by: A field of type varchar(45) (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- createdAt: A field of type datetime (required).  
+- updatedAt: A field of type datetime (required).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: claimant_type
+--------------------
+- claimant_type_id: A field of type int (required). Primary Key.  Synonyms: number, class, identifier, ref, code, key, variant, group, type, id, category, kind.
+- name: A field of type varchar(255) (required).   Synonyms: description, designation, fullname, label, title, name.
+- description: A field of type varchar(255) (optional).  
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- date_added: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- date_updated: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- created_by: A field of type varchar(255) (optional).  
+- updated_by: A field of type varchar(255) (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- createdAt: A field of type datetime (required).  
+- updatedAt: A field of type datetime (required).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: comment
+--------------
+- comment_id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- comment_text: A field of type varchar(500) (optional).  
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- created_by: A field of type int (optional).  
+- created_date: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- updated_by: A field of type int (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- updated_date: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: company
+--------------
+- company_id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- company_name: A field of type varchar(255) (required).   Synonyms: description, designation, fullname, label, title, name.
+- short_description: A field of type varchar(255) (optional).  
+- description: A field of type text (optional).  
+- type: A field of type varchar(255) (optional).   Synonyms: class, variant, group, type, category, kind.
+- company_token: A field of type varchar(255) (optional).  
+- country_code: A field of type varchar(255) (optional).   Synonyms: territory, region, state, country, nation.
+- dial_code: A field of type varchar(255) (optional).  
+- phone: A field of type varchar(255) (optional).   Synonyms: cell, contact number, mobile, telephone, phone.
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- createdAt: A field of type datetime (required).  
+- updatedAt: A field of type datetime (required).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: company_address
+----------------------
+- company_address_id: A field of type int (required). Primary Key.  Synonyms: number, residence, address, identifier, ref, city, code, key, postal, id, place, street, location.
+- company_id: A field of type int (optional).   Synonyms: number, identifier, ref, code, key, id.
+- address_id: A field of type int (optional).   Synonyms: number, residence, address, identifier, ref, city, code, key, postal, id, place, street, location.
+- address_type_code: A field of type varchar(255) (optional).   Synonyms: residence, address, class, city, variant, postal, group, type, place, category, kind, street, location.
+- address_1: A field of type varchar(255) (optional).   Synonyms: residence, address, city, postal, place, street, location.
+- address_2: A field of type varchar(255) (optional).   Synonyms: residence, address, city, postal, place, street, location.
+- city_id: A field of type varchar(255) (optional).   Synonyms: number, locality, identifier, ref, city, code, key, municipality, id, town.
+- state_id: A field of type varchar(255) (optional).   Synonyms: number, identifier, ref, code, key, id.
+- zip: A field of type varchar(255) (optional).   Synonyms: zip, pincode, postal code, postcode.
+- country_id: A field of type varchar(255) (optional).   Synonyms: number, territory, region, identifier, ref, code, key, nation, state, country, id.
+- active_ind: A field of type varchar(255) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- date_added: A field of type varchar(255) (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- date_updated: A field of type varchar(255) (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- createdAt: A field of type datetime (required).  
+- updatedAt: A field of type datetime (required).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: company_contacts
+-----------------------
+- company_contact_id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- contact_id: A field of type varchar(255) (required).   Synonyms: number, identifier, ref, code, key, id.
+- company_id: A field of type varchar(255) (optional).   Synonyms: number, identifier, ref, code, key, id.
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- date_added: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- date_updated: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- created_by: A field of type varchar(255) (optional).  
+- updated_by: A field of type varchar(255) (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: company_query
+--------------------
+- company_query_id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- company_id: A field of type int (required).   Synonyms: number, identifier, ref, code, key, id.
+- query_id: A field of type int (required).   Synonyms: number, identifier, ref, code, key, id.
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- createdAt: A field of type datetime (required).  
+- updatedAt: A field of type datetime (required).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: company_settings
+-----------------------
+- company_settings_id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- company_id: A field of type int (optional).   Synonyms: number, identifier, ref, code, key, id.
+- on_percentage: A field of type smallint (optional).  
+- offer_percentage: A field of type smallint (required).  
+- in_network_ind: A field of type tinyint(1) (required).  
+- air_client_ind: A field of type tinyint(1) (required).  
+- active_ind: A field of type tinyint(1) (required).   Synonyms: active, working, operational, live, enabled, on.
+- created_date: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- created_by: A field of type varchar(100) (optional).  
+- updated_date: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- updated_by: A field of type varchar(100) (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- createdAt: A field of type datetime (optional).  
+- updatedAt: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: company_user_id
+----------------------
+- company_user_id: A field of type int (required). Primary Key.  Synonyms: number, account, user, customer, client, identifier, ref, person, code, key, employee, member, id.
+- user_user_id: A field of type int (optional).  Foreign Key → users.user_id. Synonyms: number, account, user, customer, client, identifier, ref, person, code, key, employee, member, id.
+- company_id: A field of type int (optional).  Foreign Key → company.company_id. Synonyms: number, identifier, ref, code, key, id.
+- company_user: A field of type varchar(255) (optional).   Synonyms: account, user, client, customer, person, employee, member.
+- date_added: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- date_updated: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- createdAt: A field of type datetime (required).  
+- updatedAt: A field of type datetime (required).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: condition
+----------------
+- condition_id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- name: A field of type varchar(255) (required).   Synonyms: description, designation, fullname, label, title, name.
+- description: A field of type varchar(255) (required).  
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- createdAt: A field of type datetime (required).  
+- updatedAt: A field of type datetime (required).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: contact
+--------------
+- contact_id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- organization_name: A field of type varchar(255) (optional).   Synonyms: description, designation, fullname, label, title, name.
+- contact_person: A field of type varchar(255) (optional).  
+- email: A field of type varchar(255) (optional).   Synonyms: email, mail, address, contact.
+- phone_no: A field of type varchar(255) (optional).   Synonyms: cell, contact number, mobile, telephone, phone.
+- address: A field of type varchar(255) (optional).   Synonyms: residence, address, city, postal, place, street, location.
+- provider_type: A field of type varchar(255) (optional).   Synonyms: number, class, identifier, ref, code, key, variant, group, type, id, category, kind.
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- date_added: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- date_updated: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- createdAt: A field of type datetime (required).  
+- updatedAt: A field of type datetime (required).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: countries
+----------------
+- countries_id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- name: A field of type varchar(255) (optional).   Synonyms: description, designation, fullname, label, title, name.
+- iso3: A field of type varchar(255) (optional).  
+- numeric_code: A field of type int (optional).  
+- iso2: A field of type varchar(255) (optional).  
+- phonecode: A field of type varchar(255) (optional).   Synonyms: cell, contact number, mobile, telephone, phone.
+- capital: A field of type varchar(255) (optional).  
+- currency: A field of type varchar(255) (optional).  
+- currency_name: A field of type varchar(255) (optional).   Synonyms: description, designation, fullname, label, title, name.
+- currency_symbol: A field of type varchar(255) (optional).  
+- region: A field of type varchar(255) (optional).  
+- region_id: A field of type int (optional).   Synonyms: number, identifier, ref, code, key, id.
+- subregion: A field of type varchar(255) (optional).  
+- subregion_id: A field of type int (optional).   Synonyms: number, identifier, ref, code, key, id.
+- nationality: A field of type varchar(255) (optional).  
+- timezones: A field of type varchar(255) (optional).  
+- latitude: A field of type float (optional).  
+- longitude: A field of type float (optional).  
+- flag: A field of type varchar(255) (optional).   Synonyms: indicator, signal, flag, marker.
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- date_added: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- date_updated: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- created_by: A field of type varchar(255) (optional).  
+- updated_by: A field of type varchar(255) (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: cpt
+----------
+- cpt_id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- claim_id: A field of type int (optional).  Foreign Key → claim.claim_id. Synonyms: number, identifier, ref, code, key, id.
+- cpt_code: A field of type varchar(255) (optional).  
+- cpt_description: A field of type varchar(255) (optional).  
+- incident_date: A field of type date (optional).   Synonyms: number, datetime, time, updated, identifier, ref, recorded, code, key, id, day, created, timestamp, date.
+- Place_of_service_code: A field of type varchar(255) (optional).  
+- service_date: A field of type date (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- service_description: A field of type varchar(255) (optional).  
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- date_added: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- date_updated: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- createdAt: A field of type datetime (required).  
+- updatedAt: A field of type datetime (required).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: cpt_code
+---------------
+- cpt_code_id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- cpt_code: A field of type varchar(255) (optional).  
+- cpt_description: A field of type varchar(255) (optional).  
+- place_of_service_code: A field of type varchar(255) (optional).  
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- created_date: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- created_by: A field of type varchar(100) (optional).  
+- updated_date: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- updated_by: A field of type varchar(100) (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- createdAt: A field of type datetime (optional).  
+- updatedAt: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: django_admin_log
+-----------------------
+- id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- action_time: A field of type datetime(6) (required).  
+- object_id: A field of type longtext (optional).   Synonyms: number, identifier, ref, code, key, id.
+- object_repr: A field of type varchar(200) (required).  
+- action_flag: A field of type smallint unsigned (required).   Synonyms: indicator, signal, flag, marker.
+- change_message: A field of type longtext (required).  
+- content_type_id: A field of type int (optional).  Foreign Key → django_content_type.id. Synonyms: number, class, identifier, ref, code, key, variant, group, type, id, category, kind.
+- user_id: A field of type int (required).  Foreign Key → auth_user.id. Synonyms: number, account, user, customer, client, identifier, ref, person, code, key, employee, member, id.
+
+Table: django_content_type
+--------------------------
+- id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- app_label: A field of type varchar(100) (required).  
+- model: A field of type varchar(100) (required).  
+
+Table: django_migrations
+------------------------
+- id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- app: A field of type varchar(255) (required).  
+- name: A field of type varchar(255) (required).   Synonyms: description, designation, fullname, label, title, name.
+- applied: A field of type datetime(6) (required).  
+
+Table: django_session
+---------------------
+- session_key: A field of type varchar(40) (required). Primary Key. 
+- session_data: A field of type longtext (required).  
+- expire_date: A field of type datetime(6) (required).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: document
+---------------
+- document_id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- document_category: A field of type varchar(255) (optional).  
+- document_code: A field of type varchar(255) (optional).  
+- document_name: A field of type varchar(255) (optional).   Synonyms: description, designation, fullname, label, title, name.
+- document_description: A field of type varchar(255) (optional).  
+- document_type: A field of type varchar(255) (optional).   Synonyms: class, variant, group, type, category, kind.
+- source_code: A field of type varchar(10) (optional).  
+- redact_ind: A field of type tinyint(1) (optional).  
+- auto_generate_ind: A field of type tinyint(1) (optional).  
+- file_name_text: A field of type varchar(255) (optional).   Synonyms: description, designation, fullname, label, title, name.
+- sort_order: A field of type smallint (optional).   Synonyms: purchase, reservation, transaction, order, booking, sale.
+- mandatory_ind: A field of type tinyint(1) (optional).  
+- cms_package_ind: A field of type tinyint(1) (optional).  
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- createdAt: A field of type datetime (optional).  
+- updatedAt: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: document_list
+--------------------
+- document_list_id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- document_id: A field of type int (optional).  Foreign Key → document.document_id. Synonyms: number, identifier, ref, code, key, id.
+- file_name: A field of type varchar(255) (optional).   Synonyms: description, designation, fullname, label, title, name.
+- file_path: A field of type varchar(500) (optional).  
+- file_type: A field of type varchar(45) (optional).   Synonyms: class, variant, group, type, category, kind.
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- created_date: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- created_by: A field of type int (optional).  
+- updated_date: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- updated_by: A field of type int (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- createdAt: A field of type datetime (optional).  
+- updatedAt: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: document_template
+------------------------
+- document_template_id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- document_id: A field of type int (optional).  Foreign Key → document.document_id. Synonyms: number, identifier, ref, code, key, id.
+- template_name: A field of type varchar(255) (optional).   Synonyms: description, designation, fullname, label, title, name.
+- template_path: A field of type varchar(500) (optional).  
+- template_file_type: A field of type varchar(45) (optional).   Synonyms: class, variant, group, type, category, kind.
+- template_file: A field of type varchar(255) (optional).  
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- created_date: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- updated_date: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: error
+------------
+- error_id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- error_code: A field of type varchar(15) (required).  
+- error_description: A field of type varchar(255) (optional).  
+- severity_code: A field of type varchar(10) (optional).  
+- active_ind: A field of type tinyint(1) (required).   Synonyms: active, working, operational, live, enabled, on.
+
+Table: error_log
+----------------
+- error_log_id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- error_id: A field of type int (required).  Foreign Key → error.error_id. Synonyms: number, identifier, ref, code, key, id.
+- error_code: A field of type varchar(15) (optional).  
+- error_description: A field of type varchar(500) (optional).  
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- created_date: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- created_by: A field of type int (optional).  
+- updated_date: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- updated_by: A field of type int (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: file_upload_log
+----------------------
+- file_upload_log_id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- file_name: A field of type varchar(255) (required).   Synonyms: description, designation, fullname, label, title, name.
+- total_records: A field of type int (required).  
+- records_inserted: A field of type int (optional).  
+- records_affected: A field of type int (optional).  
+- status: A field of type varchar(255) (required).   Synonyms: stage, condition, progress, state, status, flag.
+- error_reason: A field of type varchar(255) (required).  
+- upload_date: A field of type date (required).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- upload_time: A field of type time (required).  
+- createdAt: A field of type datetime (required).  
+- updatedAt: A field of type datetime (required).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: holidays
+---------------
+- holiday_date: A field of type date (required). Primary Key.  Synonyms: number, datetime, time, updated, identifier, ref, recorded, code, key, id, day, created, timestamp, date.
+- description: A field of type varchar(255) (optional).  
+
+Table: icd_code
+---------------
+- icd_code_id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- icd_code: A field of type varchar(10) (required).  
+- icd_code_name: A field of type varchar(255) (required).   Synonyms: description, designation, fullname, label, title, name.
+- icd_code_description: A field of type varchar(500) (optional).  
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- created_date: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- created_by: A field of type varchar(100) (optional).  
+- updated_date: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- updated_by: A field of type varchar(100) (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- createdAt: A field of type datetime (optional).  
+- updatedAt: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: idr_entity
+-----------------
+- idr_entity_id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- idr_name: A field of type varchar(255) (required).   Synonyms: number, identifier, ref, description, code, key, designation, id, fullname, label, title, name.
+- idr_address_id: A field of type int (optional).   Synonyms: number, residence, address, identifier, ref, city, code, key, postal, id, place, street, location.
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- created_date: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- created_by: A field of type int (optional).  
+- updated_date: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- updated_by: A field of type int (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: mapping_details
+----------------------
+- mapping_detail_id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- mapping_id: A field of type varchar(255) (required).   Synonyms: number, identifier, ref, code, key, id.
+- source_column_name: A field of type varchar(255) (required).   Synonyms: description, designation, fullname, label, title, name.
+- destination_column_name: A field of type varchar(255) (required).   Synonyms: description, designation, fullname, label, title, name.
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- date_added: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- date_updated: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- created_by: A field of type varchar(255) (optional).  
+- updated_by: A field of type varchar(255) (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: mappings
+---------------
+- mapping_id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- mapping_name: A field of type varchar(255) (required).   Synonyms: description, designation, fullname, label, title, name.
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- date_added: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- date_updated: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- created_by: A field of type varchar(255) (optional).  
+- updated_by: A field of type varchar(255) (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: message
+--------------
+- message_id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- message_code: A field of type varchar(45) (optional).  
+- action_type_code: A field of type varchar(255) (optional).   Synonyms: class, variant, group, type, category, kind.
+- text: A field of type varchar(255) (optional).  
+- subject: A field of type varchar(255) (optional).  
+- email_ind: A field of type tinyint(1) (optional).   Synonyms: email, mail, address, contact.
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- date_added: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- date_updated: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- created_by: A field of type varchar(255) (optional).  
+- updated_by: A field of type varchar(255) (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: payor
+------------
+- payor_id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- payor_no: A field of type varchar(255) (optional).  
+- payor: A field of type varchar(255) (optional).  
+- contact_person: A field of type varchar(255) (optional).  
+- InsurancePlanName: A field of type varchar(255) (optional).   Synonyms: description, designation, fullname, label, title, name.
+- PayorControlNumber: A field of type varchar(255) (optional).  
+- FinancialClass: A field of type varchar(255) (optional).  
+- INN: A field of type varchar(255) (optional).  
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- date_added: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- date_updated: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- createdAt: A field of type datetime (required).  
+- updatedAt: A field of type datetime (required).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: payor_address
+--------------------
+- payor_address_id: A field of type int (required). Primary Key.  Synonyms: number, residence, address, identifier, ref, city, code, key, postal, id, place, street, location.
+- payor_id: A field of type int (optional).  Foreign Key → payor.payor_id. Synonyms: number, identifier, ref, code, key, id.
+- address_id: A field of type int (required).  Foreign Key → address.address_id. Synonyms: number, residence, address, identifier, ref, city, code, key, postal, id, place, street, location.
+- email: A field of type varchar(255) (optional).   Synonyms: email, mail, address, contact.
+- phone_no: A field of type varchar(255) (optional).   Synonyms: cell, contact number, mobile, telephone, phone.
+- address_1: A field of type varchar(255) (optional).   Synonyms: residence, address, city, postal, place, street, location.
+- address_2: A field of type varchar(255) (optional).   Synonyms: residence, address, city, postal, place, street, location.
+- zip: A field of type varchar(255) (optional).   Synonyms: zip, pincode, postal code, postcode.
+- InsurancePlanAdress1: A field of type varchar(255) (optional).  
+- InsurancePlanAdress2: A field of type varchar(255) (optional).  
+- InsurancePlanCity: A field of type varchar(255) (optional).   Synonyms: town, city, locality, municipality.
+- InsurancePlanState: A field of type varchar(255) (optional).  
+- InsurancePlanZip: A field of type varchar(255) (optional).   Synonyms: zip, pincode, postal code, postcode.
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- date_added: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- date_updated: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- createdAt: A field of type datetime (required).  
+- updatedAt: A field of type datetime (required).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: place_of_service
+-----------------------
+- place_of_service_id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- place_of_service_code: A field of type varchar(10) (required).  
+- place_of_service_name: A field of type varchar(255) (required).   Synonyms: description, designation, fullname, label, title, name.
+- place_of_service_description: A field of type varchar(500) (optional).  
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- created_date: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- created_by: A field of type varchar(255) (optional).  
+- updated_date: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- updated_by: A field of type varchar(255) (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- createdAt: A field of type datetime (optional).  
+- updatedAt: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: policy
+-------------
+- policy_id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- user_id: A field of type int (required).   Synonyms: number, account, user, customer, client, identifier, ref, person, code, key, employee, member, id.
+- policy_number: A field of type varchar(255) (required).  
+- policy_type: A field of type varchar(255) (required).   Synonyms: class, variant, group, type, category, kind.
+- start_date: A field of type datetime (required).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- end_date: A field of type datetime (required).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- premium: A field of type float (required).  
+- coverage_amount: A field of type float (required).   Synonyms: value, price, charge, total, fee, amount, cost, sum.
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- date_added: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- date_updated: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- created_by: A field of type varchar(255) (optional).  
+- updated_by: A field of type varchar(255) (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: provider
+---------------
+- provider_id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- provider_type: A field of type varchar(255) (optional).   Synonyms: number, class, identifier, ref, code, key, variant, group, type, id, category, kind.
+- npi_nbr: A field of type varchar(255) (optional).  
+- provider_name: A field of type varchar(255) (optional).   Synonyms: number, identifier, ref, description, code, key, designation, id, fullname, label, title, name.
+- phone_no: A field of type varchar(255) (optional).   Synonyms: cell, contact number, mobile, telephone, phone.
+- address: A field of type varchar(255) (optional).   Synonyms: residence, address, city, postal, place, street, location.
+- ProvOrgTaxID: A field of type varchar(255) (optional).   Synonyms: number, identifier, ref, code, key, id.
+- ProvOrgNPI: A field of type varchar(255) (optional).  
+- ProviderFirstName: A field of type varchar(255) (optional).   Synonyms: number, identifier, ref, description, code, key, designation, id, fullname, label, title, name.
+- ProviderLastName: A field of type varchar(255) (optional).   Synonyms: number, identifier, ref, description, code, key, designation, id, fullname, label, title, name.
+- ClientSystemVisitID: A field of type varchar(255) (optional).   Synonyms: number, identifier, ref, code, key, id.
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- date_added: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- date_updated: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- createdAt: A field of type datetime (required).  
+- updatedAt: A field of type datetime (required).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: provider_address
+-----------------------
+- provider_address_id: A field of type int (required). Primary Key.  Synonyms: number, residence, address, identifier, ref, city, code, key, postal, id, place, street, location.
+- provider_id: A field of type int (required).  Foreign Key → provider.provider_id. Synonyms: number, identifier, ref, code, key, id.
+- address_id: A field of type int (required).  Foreign Key → address.address_id. Synonyms: number, residence, address, identifier, ref, city, code, key, postal, id, place, street, location.
+- first_name: A field of type varchar(255) (optional).   Synonyms: description, designation, fullname, label, title, name.
+- last_name: A field of type varchar(255) (optional).   Synonyms: description, designation, fullname, label, title, name.
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- date_added: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- date_updated: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- created_by: A field of type datetime (optional).  
+- updated_by: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- createdAt: A field of type datetime (required).  
+- updatedAt: A field of type datetime (required).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: provider_contact
+-----------------------
+- provider_contact_id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- prov_org_state: A field of type varchar(255) (optional).  
+- location_city: A field of type varchar(255) (optional).   Synonyms: town, city, locality, municipality.
+- location_state: A field of type varchar(255) (optional).  
+- location_zip: A field of type varchar(255) (optional).   Synonyms: zip, pincode, postal code, postcode.
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- date_added: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- date_updated: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- created_by: A field of type varchar(255) (optional).  
+- updated_by: A field of type varchar(255) (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- createdAt: A field of type datetime (required).  
+- updatedAt: A field of type datetime (required).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: provider_facility
+------------------------
+- provider_facility_id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- provider_id: A field of type int (required).  Foreign Key → provider.provider_id. Synonyms: number, identifier, ref, code, key, id.
+- facility_type_code: A field of type varchar(45) (optional).   Synonyms: class, variant, group, type, category, kind.
+- facility_name: A field of type varchar(255) (optional).   Synonyms: description, designation, fullname, label, title, name.
+- facility_address_id: A field of type int (optional).  Foreign Key → address.address_id. Synonyms: number, residence, address, identifier, ref, city, code, key, postal, id, place, street, location.
+- active_ind: A field of type tinyint(1) (required).   Synonyms: active, working, operational, live, enabled, on.
+- created_date: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- created_by: A field of type int (optional).  
+- updated_date: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- updated_by: A field of type int (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: query
+------------
+- query_id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- name: A field of type varchar(100) (optional).   Synonyms: description, designation, fullname, label, title, name.
+- description: A field of type varchar(255) (optional).  
+- sql_text: A field of type text (optional).  
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- createdAt: A field of type datetime (required).  
+- updatedAt: A field of type datetime (required).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: reason
+-------------
+- reason_id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- reason: A field of type varchar(100) (optional).  
+- reason_description: A field of type varchar(255) (optional).  
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+
+Table: regions
+--------------
+- region_id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- name: A field of type varchar(255) (optional).   Synonyms: description, designation, fullname, label, title, name.
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- created_by: A field of type varchar(255) (optional).  
+- updated_by: A field of type varchar(255) (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: roles
+------------
+- role_id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- roles_name: A field of type varchar(255) (optional).   Synonyms: description, designation, fullname, label, title, name.
+- roles_description: A field of type varchar(255) (optional).  
+- roles_status: A field of type varchar(255) (optional).   Synonyms: stage, condition, progress, state, status, flag.
+- roles_image_id: A field of type varchar(255) (optional).   Synonyms: number, identifier, ref, code, key, id.
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- createdAt: A field of type datetime (optional).  
+- updatedAt: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: states
+-------------
+- states_id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- name: A field of type varchar(255) (optional).   Synonyms: description, designation, fullname, label, title, name.
+- country_id: A field of type int (optional).   Synonyms: number, territory, region, identifier, ref, code, key, nation, state, country, id.
+- country_code: A field of type varchar(255) (optional).   Synonyms: territory, region, state, country, nation.
+- fips_code: A field of type varchar(255) (optional).  
+- iso2: A field of type varchar(255) (optional).  
+- type: A field of type varchar(255) (optional).   Synonyms: class, variant, group, type, category, kind.
+- latitude: A field of type float (optional).  
+- longitude: A field of type float (optional).  
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- date_added: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- date_updated: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- created_by: A field of type varchar(255) (optional).  
+- updated_by: A field of type varchar(255) (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: status
+-------------
+- status_id: A field of type int (required). Primary Key.  Synonyms: number, stage, condition, identifier, ref, code, key, state, progress, id, status, flag.
+- status_type_id: A field of type int (required).   Synonyms: number, stage, condition, identifier, ref, class, code, key, variant, state, progress, group, id, type, category, kind, status, flag.
+- status_code: A field of type varchar(255) (required).   Synonyms: stage, condition, progress, state, status, flag.
+- status_name: A field of type varchar(255) (required).   Synonyms: stage, condition, description, designation, state, progress, fullname, status, label, flag, title, name.
+- status_description: A field of type varchar(255) (required).   Synonyms: stage, condition, progress, state, status, flag.
+- color_code: A field of type varchar(10) (optional).  
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- createdAt: A field of type datetime (required).  
+- updatedAt: A field of type datetime (required).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: status_reason
+--------------------
+- status_reason_id: A field of type int (required). Primary Key.  Synonyms: number, stage, condition, identifier, ref, code, key, state, progress, id, status, flag.
+- status_id: A field of type int (optional).  Foreign Key → status.status_id. Synonyms: number, stage, condition, identifier, ref, code, key, state, progress, id, status, flag.
+- reason_id: A field of type int (optional).  Foreign Key → reason.reason_id. Synonyms: number, identifier, ref, code, key, id.
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+
+Table: status_type
+------------------
+- status_type_id: A field of type int (required). Primary Key.  Synonyms: number, stage, condition, identifier, ref, class, code, key, variant, state, progress, group, id, type, category, kind, status, flag.
+- name: A field of type varchar(255) (required).   Synonyms: description, designation, fullname, label, title, name.
+- description: A field of type varchar(255) (required).  
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- createdAt: A field of type datetime (required).  
+- updatedAt: A field of type datetime (required).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: subregions
+-----------------
+- subregions_id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- name: A field of type varchar(255) (required).   Synonyms: description, designation, fullname, label, title, name.
+- region_id: A field of type varchar(255) (optional).   Synonyms: number, identifier, ref, code, key, id.
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- date_added: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- date_updated: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- created_by: A field of type varchar(255) (optional).  
+- updated_by: A field of type varchar(255) (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: transition
+-----------------
+- transition_id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- workflow_id: A field of type int (optional).  Foreign Key → workflow.workflow_id. Synonyms: number, identifier, ref, code, key, id.
+- from_status_id: A field of type int (required).   Synonyms: number, stage, condition, identifier, ref, code, key, state, progress, id, status, flag.
+- to_status_id: A field of type int (optional).   Synonyms: number, stage, condition, identifier, ref, code, key, state, progress, id, status, flag.
+- transition_code: A field of type varchar(50) (optional).  
+- manual_transition_ind: A field of type tinyint(1) (optional).  
+- condition_id: A field of type int (optional).   Synonyms: number, identifier, ref, code, key, id.
+- min_days: A field of type int (optional).  
+- max_days: A field of type int (optional).  
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- createdAt: A field of type datetime (required).  
+- updatedAt: A field of type datetime (required).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: type_category
+--------------------
+- type_category_code: A field of type varchar(10) (required). Primary Key.  Synonyms: class, variant, group, type, category, kind.
+- type_category_name: A field of type varchar(255) (optional).   Synonyms: class, description, variant, designation, group, type, category, kind, fullname, label, title, name.
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+
+Table: type_code
+----------------
+- type_code: A field of type varchar(10) (required). Primary Key.  Synonyms: class, variant, group, type, category, kind.
+- type_category_code: A field of type varchar(10) (optional).  Foreign Key → type_category.type_category_code. Synonyms: class, variant, group, type, category, kind.
+- type_code_name: A field of type varchar(255) (optional).   Synonyms: class, description, variant, designation, group, type, category, kind, fullname, label, title, name.
+- description: A field of type varchar(255) (optional).  
+- sort_order: A field of type int (optional).   Synonyms: purchase, reservation, transaction, order, booking, sale.
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- default_ind: A field of type tinyint(1) (optional).  
+
+Table: user_additional_infos
+----------------------------
+- id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- userId: A field of type int (required).  Foreign Key → users.user_id. Synonyms: number, account, user, customer, client, identifier, ref, person, code, key, employee, member, id.
+- summaryInfo: A field of type varchar(255) (optional).  
+- timezoneId: A field of type varchar(255) (optional).   Synonyms: number, identifier, ref, code, key, id.
+- userImage: A field of type varchar(255) (optional).   Synonyms: account, user, client, customer, person, employee, member.
+- dateOfBirth: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- gender: A field of type varchar(255) (optional).  
+- contactNumber: A field of type varchar(255) (optional).  
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- createdAt: A field of type datetime (optional).  
+- updatedAt: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: users
+------------
+- user_id: A field of type int (required). Primary Key.  Synonyms: number, account, user, customer, client, identifier, ref, person, code, key, employee, member, id.
+- userToken: A field of type varchar(255) (optional).   Synonyms: account, user, client, customer, person, employee, member.
+- username: A field of type varchar(255) (optional).   Synonyms: account, user, customer, client, description, person, employee, designation, member, fullname, label, title, name.
+- password: A field of type varchar(255) (optional).   Synonyms: password, passcode, credential, secret.
+- firstName: A field of type varchar(255) (optional).   Synonyms: description, designation, fullname, label, title, name.
+- lastName: A field of type varchar(255) (optional).   Synonyms: description, designation, fullname, label, title, name.
+- email: A field of type varchar(255) (optional).   Synonyms: email, mail, address, contact.
+- provider: A field of type varchar(255) (optional).   Synonyms: number, identifier, ref, code, key, id.
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- createdAt: A field of type datetime (required).  
+- updatedAt: A field of type datetime (required).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: workflow
+---------------
+- workflow_id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- workflow_code: A field of type varchar(10) (optional).  
+- name: A field of type varchar(100) (optional).   Synonyms: description, designation, fullname, label, title, name.
+- description: A field of type varchar(100) (optional).  
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- createdAt: A field of type datetime (required).  
+- updatedAt: A field of type datetime (required).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+
+Table: workflow_step
+--------------------
+- workflow_step_id: A field of type int (required). Primary Key.  Synonyms: number, identifier, ref, code, key, id.
+- workflow_id: A field of type int (optional).  Foreign Key → workflow.workflow_id. Synonyms: number, identifier, ref, code, key, id.
+- name: A field of type varchar(255) (optional).   Synonyms: description, designation, fullname, label, title, name.
+- status_id: A field of type int (optional).   Synonyms: number, stage, condition, identifier, ref, code, key, state, progress, id, status, flag.
+- transition_id: A field of type int (optional).   Synonyms: number, identifier, ref, code, key, id.
+- sort_order: A field of type smallint (optional).   Synonyms: purchase, reservation, transaction, order, booking, sale.
+- workflow_step_code: A field of type varchar(50) (optional).  
+- claim_transition_id: A field of type int (optional).   Synonyms: number, identifier, ref, code, key, id.
+- confirm_ind: A field of type tinyint(1) (optional).  
+- message_code: A field of type varchar(45) (optional).  
+- start_ind: A field of type tinyint(1) (optional).  
+- active_ind: A field of type tinyint(1) (optional).   Synonyms: active, working, operational, live, enabled, on.
+- updatedAt: A field of type datetime (optional).   Synonyms: datetime, time, updated, recorded, day, created, timestamp, date.
+- createdAt: A field of type datetime (optional).  
+
